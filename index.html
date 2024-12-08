@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales Commission Calculator</title>
+    <link rel="stylesheet" href="CSS\style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Sales Commission Calculator</h1>
+        <button id="start">Start Entering Sales</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        document.getElementById("start").addEventListener("click", () => {
+            let subtotal = 0;
+            let input;
+
+            while (true) {
+                input = prompt("Please enter the dollar amount of your sales (or type 'Done' to finish):");
+                
+                if (input === null) { // Handle cancel
+                    alert("Action canceled. Exiting the application.");
+                    return;
+                }
+
+                if (input.trim().toLowerCase() === "done") {
+                    break;
+                }
+
+                if (!isNaN(input) && parseFloat(input) >= 0) {
+                    subtotal += parseFloat(input);
+                } else {
+                    alert("Invalid input. Please enter a valid dollar amount.");
+                }
+            }
+
+            let commissionRate = 0;
+
+            if (subtotal > 0 && subtotal <= 499.99) {
+                commissionRate = 0.05;
+            } else if (subtotal >= 500 && subtotal <= 999.99) {
+                commissionRate = 0.10;
+            } else if (subtotal >= 1000) {
+                commissionRate = 0.15;
+            }
+
+            let commission = subtotal * commissionRate;
+            let totalEarnings = subtotal + commission;
+
+            // Formatting values
+            subtotal = subtotal.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            commission = commission.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            totalEarnings = totalEarnings.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+            commissionRate = (commissionRate * 100).toFixed(0) + "%";
+
+            // Output result
+            document.getElementById("output").innerHTML = `
+                <h2>Results</h2>
+                <p><strong>Subtotal:</strong> ${subtotal}</p>
+                <p><strong>Commission Rate:</strong> ${commissionRate}</p>
+                <p><strong>Total Commission:</strong> ${commission}</p>
+                <p><strong>Total Earnings:</strong> ${totalEarnings}</p>
+            `;
+        });
+    </script>
+</body>
+</html>
