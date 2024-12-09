@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sales Commission Calculator</title>
-    <link rel="stylesheet" href="CSS\style.css">
+    <link rel="stylesheet" href="CSS/style.css">
 </head>
 <body>
     <div class="container">
@@ -14,12 +14,16 @@
     </div>
 
     <script>
-        document.getElementById("start").addEventListener("click", () => {
-            let subtotal = 0;
+          document.getElementById("start").addEventListener("click", () => {
+            let username = prompt("Please enter your name:");
+            if (!username || username.trim() === "") {
+                alert("No name entered. Exiting application.");
+                return;
+            }let subtotal = 0;
             let input;
 
             while (true) {
-                input = prompt("Please enter the dollar amount of your sales (or type 'Done' to finish):");
+                input = prompt(`Hi ${username}, Please enter the dollar amount of your sales (or type 'Done' to finish):`);
                 
                 if (input === null) { // Handle cancel
                     alert("Action canceled. Exiting the application.");
